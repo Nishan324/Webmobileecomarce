@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=, initial-scale=1.0">
+  <title>Admin-dashboard</title>
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Sharp"
+        rel="stylesheet">
+  <link rel="stylesheet" type="text/css" th:href="@{~/css/adminpanel.css}">
+  <link rel="stylesheet" th:href="@{~/css/add.css}">
+</head>
+<body>
+<div class="grid-container">
+
+  <aside id="sidebar">
+
+    <div class="sidebar-title">
+      <h4 class="profile-text">Nishan</h4>
+      <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+    </div>
+
+    <ul class="sidebar-list">
+      <li class="sidebar-list-item">
+        <a th:href="@{/admin/dashboard}">Dashboard</a>
+      </li>
+      <li class="sidebar-list-item">
+        <a th:href="@{/admin/order-list}">Order List</a>
+      </li>
+      <li class="sidebar-list-item">
+        <a th:href="@{/admin/user-list}">User List</a>
+      </li>
+      <li class="sidebar-list-item">
+        <a th:href="@{/admin/add-product}">Add Products</a>
+      </li>
+      <li class="sidebar-list-item">
+        <a th:href="@{/admin/settings}">Settings</a>
+      </li>
+      <li class="sidebar-list-item">
+        <a th:href="@{/logout}">logout</a>
+      </li>
+    </ul>
+  </aside>
+  <div class="container">
+    <main>
+      <h1>Add</h1>
+      <form th:method="post" th:action="@{~/prod/saveprod}" th:object="${prod}" enctype="multipart/form-data">
+        <div class="form-group">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" placeholder="Enter your Name" th:field="*{name}">
+        </div>
+
+        <div class="form-group">
+          <label for="name">Price:</label>
+          <input type="text"  placeholder="Enter your price" th:field="*{price}">
+        </div>
+        <div class="form-group">
+          <label for="name">Message:</label>
+          <input type="text"   placeholder="Enter Description" th:field="*{message}">
+        </div>
+        <div class="form-group1">
+          <label for="file">Image:</label>
+          <input type="file" id="file" name="image" accept="image/*" >
+        </div>
+        <button type="submit">Submit</button>
+      </form>
+
+    </main>
+  </div>
+</div>
+
+</body>
+</html>
