@@ -43,24 +43,30 @@ public class ProductServiceImpl implements ProductService {
         productRepo.save(product);
         return new ProductPojo(product);
     }
-    public List<Product> listMapping(List<Product> list){
-        Stream<Product> allRoomsWithImage=list.stream().map(prod ->
+
+    @Override
+    public List<Product> fetchAll() {
+        return findAllInProduct(productRepo.findAll());
+
+    }
+
+    public List<Product> findAllInProduct(List<Product> list){
+        Stream<Product> allProducts=list.stream().map(prod ->
                 Product.builder()
                         .id(prod.getId())
                         .name(prod.getName())
                         .price(prod.getPrice())
                         .message(prod.getMessage())
                         .imageBase64(getImageBase64(prod.getImage()))
-
                         .build()
         );
 
-        list = allRoomsWithImage.toList();
+        list = allProducts.toList();
         return list;
     }
     public String getImageBase64(String fileName) {
         if (fileName!=null) {
-            String filePath = System.getProperty("user.dir")+"\\images\\";
+            String filePath = System.getProperty("user.dir")+"/images/";
             File file = new File(filePath + fileName);
             byte[] bytes;
             try {
@@ -73,4 +79,22 @@ public class ProductServiceImpl implements ProductService {
         }
         return null;
     }
+
+    @Override
+    public Product fetchById(Integer id) {
+        Product product= productRepo.findById(id).orElseThrow(()-> new RuntimeException("Couldnot find"));
+        product = Product.builder()
+                .name(product.getName())
+                .price(product.getPrice())
+                .message(product.getMessage())
+                .imageBase64(getImageBase64(product.getImage()))
+                .build();
+        return product;
+    }
+
+    @Override
+    public void deleteById(Integer id) {
+        productRepo.deleteById(id);
+    }
+
 }

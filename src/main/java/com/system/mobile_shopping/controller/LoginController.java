@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class LoginController {
     @GetMapping("/login")
     public String login() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
+//        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+//        if (authentication == null || authentication instanceof AnonymousAuthenticationToken) {
             return "login";
-        }
-        return "redirect:/view/dashboard";
+//        }
+//                    return "redirect:/view/dashboard";
+
     }
 }

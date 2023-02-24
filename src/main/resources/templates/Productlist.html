@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>Admin Dashboard</title>
+
+     <link rel="stylesheet" type="text/css" th:href="@{~/css/adminpanel.css}">
+<!--    <link rel="stylesheet" href="assets/css/adminpanel.css">-->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css">
+</head>
+<body>
+
+<div class="grid-container">
+
+    <header class="header">
+        <div class="menu-icon" onclick="openSidebar()">
+            <span class="material-icons-outlined">menu</span>
+        </div>
+        <div class="main-title">
+            <h2>Productlist</h2>
+        </div>
+
+    </header>
+
+    <aside id="sidebar">
+
+        <div class="sidebar-title">
+            <h4 class="profile-text">Nishan</h4>
+            <span class="material-icons-outlined" onclick="closeSidebar()">close</span>
+        </div>
+
+        <ul class="sidebar-list">
+            <li class="sidebar-list-item">
+                <a th:href="@{/admin/dashboard}">Dashboard</a>
+            </li>
+            <li class="sidebar-list-item">
+                <a th:href="@{/admin/order-list}">Order List</a>
+            </li>
+            <li class="sidebar-list-item">
+                <a th:href="@{/admin/user-list}">User List</a>
+            </li>
+            <li class="sidebar-list-item">
+                <a th:href="@{/admin/add-product}">Add Products</a>
+            </li>
+            <li class="sidebar-list-item">
+                <a th:href="@{/admin/settings}">Settings</a>
+            </li>
+            <li class="sidebar-list-item">
+                <a th:href="@{/logout}">logout</a>
+            </li>
+        </ul>
+    </aside>
+
+    <table class="members-table">
+        <thead>
+        <tr>
+            <th>ProductId</th>
+            <th>ProductName</th>
+            <th>ProductPrice</th>
+            <th>ProductDescription</th>
+            <th>ProductImage</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="productss:${products}">
+            <td th:text="${productss.id}"></td>
+            <td th:text="${productss.name}"></td>
+            <td th:text="${productss.price}"></td>
+            <td th:text="${productss.message}"></td>
+            <td th:src="'data:image/png;base64,'+${productss.imageBase64}"></td>
+            <td><a>Edit</a></td>
+            <td><a th:href="@{~/admin/delete/}+${productss.id}">Delete</a></td>
+            <td th:src="'data:image/png;base64,'+${productss.imageBase64}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!--Main-->
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/apexcharts/3.35.5/apexcharts.min.js"></script>
+    <script type="text/javascript" th:src="@{/javascript/admin_dashboard.js}"></script>
+</div>
+</body>
+</html>

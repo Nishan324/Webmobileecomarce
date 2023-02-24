@@ -1,17 +1,22 @@
 package com.system.mobile_shopping.controller;
 
+import com.system.mobile_shopping.entity.Product;
 import com.system.mobile_shopping.pojo.ProductPojo;
 import com.system.mobile_shopping.services.ProductService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @Controller
@@ -20,6 +25,14 @@ import java.util.Map;
 
 public class ProductController {
     private final ProductService productService;
+
+
+    @GetMapping("/getProduct")
+    public String getProduct(Model model) {
+        List<Product> orderLists=productService.fetchAll();
+        model.addAttribute("products", orderLists);
+        return "Productlist";
+    }
 
     @PostMapping("/saveprod")
     public String saveProduct(ProductPojo productPojo, BindingResult bindingResult, RedirectAttributes redirectAttributes) throws IOException {
@@ -45,4 +58,7 @@ public class ProductController {
         });
         return errors;
     }
+
 }
+
+
